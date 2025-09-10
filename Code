@@ -1,0 +1,206 @@
+Практические задания по массивам.
+
+(1 задание)
+
+Сделать массив чисел
+-Вывести все элементы массива (реализация через функцию)
+Выводит все элементы массива в обратном порядке(реализация через функцию)
+Выводит чётные элементы массива (реализация через функцию)
+Выводит все элементы массива через 1(реализация через функцию)
+-Выводит все элементы массива пока не встретится элемент -4 (реализация через функцию)
+вывести результаты всех функции в основной программе.
+
+using System;
+
+class Program
+{
+    // 1. Вывод всех элементов массива
+    static void PrintAll(int[] numbers)
+    {
+        Console.WriteLine("Все элементы массива:");
+        for (int i = 0; i < numbers.Length; i++)
+            Console.Write(numbers[i] + " ");
+        Console.WriteLine();
+    }
+
+    // 2. Вывод элементов в обратном порядке
+    static void PrintReverse(int[] numbers)
+    {
+        Console.WriteLine("Элементы массива в обратном порядке:");
+        for (int i = numbers.Length - 1; i >= 0; i--)
+            Console.Write(numbers[i] + " ");
+        Console.WriteLine();
+    }
+
+    // 3. Вывод чётных элементов
+    static void PrintEven(int[] numbers)
+    {
+        Console.WriteLine("Чётные элементы массива:");
+        for (int i = 0; i < numbers.Length; i++)
+            if (numbers[i] % 2 == 0)
+                Console.Write(numbers[i] + " ");
+        Console.WriteLine();
+    }
+
+    // 4. Вывод элементов через один
+    static void PrintEverySecond(int[] numbers)
+    {
+        Console.WriteLine("Элементы массива через один:");
+        for (int i = 0; i < numbers.Length; i += 2)
+            Console.Write(numbers[i] + " ");
+        Console.WriteLine();
+    }
+
+    // 5. Вывод элементов пока не встретится -4
+    static void PrintUntilMinusFour(int[] numbers)
+    {
+        Console.WriteLine("Элементы массива до -4:");
+        for (int i = 0; i < numbers.Length; i++)
+        {
+            if (numbers[i] == -4)
+                break;
+            Console.Write(numbers[i] + " ");
+        }
+        Console.WriteLine();
+    }
+
+    static void Main()
+    {
+        int[] myArray = { 10, 5, -2, 8, 13, -4, 20, 7 };
+
+        PrintAll(myArray);
+        PrintReverse(myArray);
+        PrintEven(myArray);
+        PrintEverySecond(myArray);
+        PrintUntilMinusFour(myArray);
+    }
+}
+
+(2 задание)
+Создать массив чисел
+    -В массив добавляется элемент в конец. (реализация через функцию)
+    -В массив добавляется элемент в начало. (реализация через функцию)
+    -В массив добавляется элемент в позицию (допустим 6). (реализация через функцию)
+    -Из массива удаляется элемент с конца . (реализация через функцию)
+    -Из массива удаляется элемент с начала. (реализация через функцию)
+    -Из массива удаляется элемент с позиции (допустим 2) (реализация через функцию)
+    Создание массива из двух массивов. В итоговом массиве должны быть элементы первого и второго массива.
+
+using System;
+
+class Program
+{
+    // Добавить элемент в конец массива
+    static int[] AddToEnd(int[] arr, int value)
+    {
+        int[] newArr = new int[arr.Length + 1];
+        for (int i = 0; i < arr.Length; i++)
+            newArr[i] = arr[i];
+        newArr[newArr.Length - 1] = value;
+        return newArr;
+    }
+
+    // Добавить элемент в начало массива
+    static int[] AddToStart(int[] arr, int value)
+    {
+        int[] newArr = new int[arr.Length + 1];
+        newArr[0] = value;
+        for (int i = 0; i < arr.Length; i++)
+            newArr[i + 1] = arr[i];
+        return newArr;
+    }
+
+    // Добавить элемент в указанную позицию
+    static int[] AddToPosition(int[] arr, int value, int pos)
+    {
+        if (pos < 0 || pos > arr.Length) pos = arr.Length; // если неверная позиция, добавляем в конец
+        int[] newArr = new int[arr.Length + 1];
+        for (int i = 0; i < pos; i++)
+            newArr[i] = arr[i];
+        newArr[pos] = value;
+        for (int i = pos; i < arr.Length; i++)
+            newArr[i + 1] = arr[i];
+        return newArr;
+    }
+
+    // Удалить элемент с конца
+    static int[] RemoveFromEnd(int[] arr)
+    {
+        if (arr.Length == 0) return arr;
+        int[] newArr = new int[arr.Length - 1];
+        for (int i = 0; i < newArr.Length; i++)
+            newArr[i] = arr[i];
+        return newArr;
+    }
+
+    // Удалить элемент с начала
+    static int[] RemoveFromStart(int[] arr)
+    {
+        if (arr.Length == 0) return arr;
+        int[] newArr = new int[arr.Length - 1];
+        for (int i = 0; i < newArr.Length; i++)
+            newArr[i] = arr[i + 1];
+        return newArr;
+    }
+
+    // Удалить элемент с позиции
+    static int[] RemoveFromPosition(int[] arr, int pos)
+    {
+        if (arr.Length == 0 || pos < 0 || pos >= arr.Length) return arr;
+        int[] newArr = new int[arr.Length - 1];
+        for (int i = 0; i < pos; i++)
+            newArr[i] = arr[i];
+        for (int i = pos + 1; i < arr.Length; i++)
+            newArr[i - 1] = arr[i];
+        return newArr;
+    }
+
+    // Объединение двух массивов
+    static int[] MergeArrays(int[] arr1, int[] arr2)
+    {
+        int[] newArr = new int[arr1.Length + arr2.Length];
+        for (int i = 0; i < arr1.Length; i++)
+            newArr[i] = arr1[i];
+        for (int i = 0; i < arr2.Length; i++)
+            newArr[arr1.Length + i] = arr2[i];
+        return newArr;
+    }
+
+    // Печать массива
+    static void PrintArray(int[] arr, string message)
+    {
+        Console.WriteLine(message);
+        foreach (var item in arr)
+            Console.Write(item + " ");
+        Console.WriteLine("\n");
+    }
+
+    static void Main()
+    {
+        int[] arr = { 1, 2, 3, 4, 5 };
+
+        PrintArray(arr, "Исходный массив:");
+
+        arr = AddToEnd(arr, 10);
+        PrintArray(arr, "После добавления в конец:");
+
+        arr = AddToStart(arr, 0);
+        PrintArray(arr, "После добавления в начало:");
+
+        arr = AddToPosition(arr, 99, 3);
+        PrintArray(arr, "После добавления на позицию 3:");
+
+        arr = RemoveFromEnd(arr);
+        PrintArray(arr, "После удаления с конца:");
+
+        arr = RemoveFromStart(arr);
+        PrintArray(arr, "После удаления с начала:");
+
+        arr = RemoveFromPosition(arr, 2);
+        PrintArray(arr, "После удаления элемента с позиции 2:");
+
+        int[] arr2 = { 100, 200, 300 };
+        int[] merged = MergeArrays(arr, arr2);
+        PrintArray(merged, "После объединения двух массивов:");
+    }
+}
